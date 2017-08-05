@@ -13,7 +13,6 @@ const fetch = (options) => {
     fetchType,
     url,
   } = options
-
   const cloneData = lodash.cloneDeep(data)
 
   try {
@@ -85,7 +84,6 @@ export default function request (options) {
       }
     }
   }
-
   return fetch(options).then((response) => {
     const { statusText, status } = response
     let data = options.fetchType === 'YQL' ? response.data.query.results.json : response.data

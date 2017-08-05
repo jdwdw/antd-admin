@@ -4,6 +4,7 @@ import { routerRedux } from 'dva/router'
 import { parse } from 'qs'
 import config from 'config'
 import { EnumRoleType } from 'enums'
+
 const { prefix } = config
 
 export default {
@@ -29,21 +30,21 @@ export default {
   },
   subscriptions: {
 
-    setup ({ dispatch }) {
-      dispatch({ type: 'query' })
-      let tid
-      window.onresize = () => {
-        clearTimeout(tid)
-        tid = setTimeout(() => {
-          dispatch({ type: 'changeNavbar' })
-        }, 300)
-      }
-    },
+    // setup ({ dispatch }) {
+    //   dispatch({ type: 'query' })
+    //   let tid
+    //   window.onresize = () => {
+    //     clearTimeout(tid)
+    //     tid = setTimeout(() => {
+    //       dispatch({ type: 'changeNavbar' })
+    //     }, 300)
+    //   }
+    // },
 
   },
   effects: {
 
-    *query ({
+    * query ({
       payload,
     }, { call, put }) {
       const { success, user } = yield call(query, payload)
@@ -54,7 +55,7 @@ export default {
         if (permissions.role === EnumRoleType.ADMIN || permissions.role === EnumRoleType.DEVELOPER) {
           permissions.visit = list.map(item => item.id)
         } else {
-          menu = list.filter(item => {
+          menu = list.filter((item) => {
             const cases = [
               permissions.visit.includes(item.id),
               item.mpid ? permissions.visit.includes(item.mpid) || item.mpid === '-1' : true,
@@ -71,18 +72,18 @@ export default {
             menu,
           },
         })
-        if (location.pathname === '/login') {
-          yield put(routerRedux.push('/dashboard'))
-        }
-      } else {
-        if (config.openPages && config.openPages.indexOf(location.pathname) < 0) {
-          let from = location.pathname
-          window.location = `${location.origin}/login?from=${from}`
-        }
+        yield put(routerRedux.push('/dashboard'))
+        // if (location.pathname === '/login') {
+        //   yield put(routerRedux.push('/dashboard'))
+        // }
       }
+      // else if (config.openPages && config.openPages.indexOf(location.pathname) < 0) {
+      //   let from = location.pathname
+      //   window.location = `${location.origin}/login?from=${from}`
+      // }
     },
 
-    *logout ({
+    * logout ({
       payload,
     }, { call, put }) {
       const data = yield call(logout, parse(payload))
@@ -93,14 +94,18 @@ export default {
       }
     },
 
-    *changeNavbar ({
+    * changeNavbar ({
       payload,
     }, { put, select }) {
-      const { app } = yield(select(_ => _))
+      const { app } = yield (select(_ => _))
       const isNavbar = document.body.clientWidth < 769
       if (isNavbar !== app.isNavbar) {
         yield put({ type: 'handleNavbar', payload: isNavbar })
       }
+    },
+
+    * goToUIElementDropOption ({ payload = '/UIElement/dropOption' }, { put }) {
+      yield put(routerRedux.push(payload))
     },
 
   },
