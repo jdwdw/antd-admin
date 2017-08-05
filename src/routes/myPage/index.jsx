@@ -23,7 +23,8 @@ class MyPage extends Component {
   render () {
     const { myPage, dispatch } = this.props
     let accesstokenValue = this.state.accesstokenValue
-    if (myPage.userObject.success) {
+    console.log(localStorage.getItem('accesstoken'))
+    if (localStorage.getItem('accesstoken')) {
       return (<Button onClick={function () { dispatch({ type: 'myPage/logout' }) }}>退出登录</Button>)
     }
     return (

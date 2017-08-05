@@ -16,6 +16,7 @@ export default {
 
     * login ({ payload }, { call, put }) {
       let data = yield call(login, payload)
+      localStorage.setItem('accesstoken', 'e29ad689-a77d-4835-87f5-64aef11f772a')
       if (data.success) {
         data = { userObject: data }
         yield put({ type: 'updateState',
@@ -30,6 +31,7 @@ export default {
       yield put({ type: 'updateState',
         payload: { userObject: {} },
       })
+      localStorage.removeItem('accesstoken')
     },
 
 

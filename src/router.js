@@ -39,6 +39,15 @@ const Routers = function ({ history, app }) {
           },
         },
         {
+          path: 'topic/:id',
+          getComponent (nextState, cb) {
+            require.ensure([], (require) => {
+              registerModel(app, require('./models/topic'))
+              cb(null, require('./routes/homePage/topicDetail/'))
+            }, 'topic-detail')
+          },
+        },
+        {
           path: 'dashboard',
           getComponent (nextState, cb) {
             require.ensure([], (require) => {

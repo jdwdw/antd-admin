@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { routerRedux } from 'dva/router'
+import { Link } from 'dva/router'
 import { connect } from 'dva'
 import PropTypes from 'prop-types'
 import { RefreshControl, ListView } from 'antd-mobile'
@@ -54,7 +54,9 @@ class List extends Component {
       return (
         <div>
           <img src={rowData.author.avatar_url} style={{ height: '1rem', width: '1rem' }} />
-          <div style={{ 'font-size': '0.4rem' }}>{rowData.title}</div>
+          <Link to={`/topic/${rowData.id}`}>
+            <div style={{ 'font-size': '0.4rem' }}>{rowData.title}</div>
+          </Link>
         </div>
       )
     }

@@ -15,6 +15,7 @@ module.exports = {
   api: {
     userLogin: `${APIV1}/accesstoken`,
     topics: `${APIV1}/topics`,
+    topic: `${APIV1}/topic/:id`,
     userLogout: `${APIV1}/user/logout`,
     userInfo: `${APIV1}/userInfo`,
     users: `${APIV1}/users`,
