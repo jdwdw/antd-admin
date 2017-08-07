@@ -1,10 +1,11 @@
 import pathToRegexp from 'path-to-regexp'
-import { getTopic } from '../services/topic'
+import { getTopic, collect, deCollect, repliesCreat, replyUpsChange } from '../services/topic'
 
 export default {
   namespace: 'topicDetail',
   state: {
     topicData: {},
+    topicId: '',
   },
 
   subscriptions: {
@@ -25,17 +26,74 @@ export default {
 
   effects: {
     * getTopic ({ payload }, { call, put }) {
-      console.log(99999)
       const accesstoken = localStorage.getItem('accesstoken')
       let params = { accesstoken }
       params = Object.assign(params, payload)
-      console.log(params)
       let data = yield call(getTopic, params)
       if (data.success) {
-        console.log(data)
-        data = { topicData: data.data }
+        data = { topicData: data.data, topicId: data.data.id }
         yield put({ type: 'updateState',
           payload: data,
+        })
+      }
+    },
+
+    * collect ({ payload }, { call, put, select }) {
+      const accesstoken = localStorage.getItem('accesstoken')
+      let params = { accesstoken }
+      const topicId = yield select(state => state.topicDetail.topicId)
+      const topicIdObject = { topic_id: topicId }
+      params = Object.assign(params, topicIdObject)
+      let data = yield call(collect, params)
+      if (data.success) {
+        data = { topicData: data.data }
+        yield put({ type: 'getTopic',
+          payload: { id: topicId },
+        })
+      }
+    },
+    * deCollect ({ payload }, { call, put, select }) {
+      const accesstoken = localStorage.getItem('accesstoken')
+      let params = { accesstoken }
+      const topicId = yield select(state => state.topicDetail.topicId)
+      const topicIdObject = { topic_id: topicId }
+      params = Object.assign(params, topicIdObject)
+      let data = yield call(deCollect, params)
+      if (data.success) {
+        data = { topicData: data.data }
+        yield put({ type: 'getTopic',
+          payload: { id: topicId },
+        })
+      }
+    },
+
+    * replies ({ payload }, { call, put, select }) {
+      const accesstoken = localStorage.getItem('accesstoken')
+      let params = { accesstoken }
+      const topicId = yield select(state => state.topicDetail.topicId)
+      const topicIdObject = { topic_id: topicId }
+      const payloadObject = { reply_id: payload.reply_id, content: payload.content }
+      params = Object.assign(params, topicIdObject, payloadObject)
+      let data = yield call(repliesCreat, params)
+      if (data.success) {
+        data = { topicData: data.data }
+        yield put({ type: 'getTopic',
+          payload: { id: topicId },
+        })
+      }
+    },
+
+    * replyUps ({ payload }, { call, put, select }) {
+      const accesstoken = localStorage.getItem('accesstoken')
+      let params = { accesstoken }
+      const topicId = yield select(state => state.topicDetail.topicId)
+      const replyIdObject = { reply_id: payload }
+      params = Object.assign(params, replyIdObject)
+      let data = yield call(replyUpsChange, params)
+      if (data.success) {
+        data = { topicData: data.data }
+        yield put({ type: 'getTopic',
+          payload: { id: topicId },
         })
       }
     },

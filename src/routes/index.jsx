@@ -17,7 +17,9 @@ const App = ({ children, dispatch, app, loading, location }) => {
   return (
     <div>
       <TabBar onChangeRoute={function (payload) { dispatch({ type: 'app/goToUIElementDropOption', payload }) }}>
-        { children }
+        <div style={{ overflow: 'auto', height: '700px' }}>
+          { children }
+        </div>
       </TabBar>
     </div>
   )
