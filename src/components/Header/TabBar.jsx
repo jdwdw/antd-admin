@@ -73,7 +73,7 @@ class TabBarComponent extends Component {
               this.setState({
                 selectedTab: 'collect',
               })
-              this.props.onChangeRoute('/dashboard')
+              this.props.onChangeRoute('/collections')
             }}
           >
             {children}

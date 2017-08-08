@@ -1,4 +1,5 @@
 import pathToRegexp from 'path-to-regexp'
+import { routerRedux } from 'dva/router'
 import { getTopic, collect, deCollect, repliesCreat, replyUpsChange } from '../services/topic'
 
 export default {
@@ -12,6 +13,8 @@ export default {
 
     setup ({ dispatch, history }) {
       history.listen((location) => {
+        console.log(location.pathname)
+        console.log(pathToRegexp('/tac/:id/topic').exec('/tac/333232/topic'))
         const match = pathToRegexp('/topic/:id').exec(location.pathname)
         if (match) {
           dispatch({
@@ -96,6 +99,12 @@ export default {
           payload: { id: topicId },
         })
       }
+    },
+
+    * topiceEdit ({ payload }, { put, select }) {
+      const topicId = yield select(state => state.topicDetail.topicId)
+      const url = `/topic/${topicId}/edit`
+      yield put(routerRedux.push(url))
     },
 
 

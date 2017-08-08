@@ -1,7 +1,7 @@
 import { request, config } from 'utils'
 
 const { api } = config
-const { topic, topicCollect, topicDeCollect, replies, replyUps } = api
+const { topic, topicCollect, topicDeCollect, replies, replyUps, collections } = api
 
 export async function getTopic (params) {
   return request({
@@ -23,6 +23,14 @@ export async function deCollect (params) {
   return request({
     url: topicDeCollect,
     method: 'post',
+    data: params,
+  })
+}
+
+export async function getCollections (params) {
+  return request({
+    url: collections.replace(':loginname', params.loginname),
+    method: 'get',
     data: params,
   })
 }

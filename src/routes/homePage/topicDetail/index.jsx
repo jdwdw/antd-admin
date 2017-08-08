@@ -26,7 +26,7 @@ class TopicDetail extends Component {
     const { top, title, create_at, last_reply_at, tab, is_collect, reply_count, replies, content, visit_count, author } = this.props.topicDetail.topicData
     return (
       <div>
-          topicDetail
+        {(author.loginname === localStorage.getItem('loginname')) ? <Button onClick={function () { dispatch({ type: 'topicDetail/topiceEdit' }) }}>修改</Button> : 'topicDetail'}
         <div className={styles.topicHeader}>
           <div className={'topicHeaderTitle'}>
             {top ? <div>置顶</div> : ''}

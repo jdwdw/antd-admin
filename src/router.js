@@ -39,12 +39,39 @@ const Routers = function ({ history, app }) {
           },
         },
         {
+          path: 'topic/create',
+          getComponent (nextState, cb) {
+            require.ensure([], (require) => {
+              registerModel(app, require('./models/topicCreator'))
+              cb(null, require('./routes/homePage/topicDetail/topicCreat/'))
+            }, 'topic-creator')
+          },
+        },
+        {
+          path: 'topic/:id/edit',
+          getComponent (nextState, cb) {
+            require.ensure([], (require) => {
+              registerModel(app, require('./models/topicCreator'))
+              cb(null, require('./routes/homePage/topicDetail/topicCreat'))
+            }, 'topic-edit')
+          },
+        },
+        {
           path: 'topic/:id',
           getComponent (nextState, cb) {
             require.ensure([], (require) => {
               registerModel(app, require('./models/topic'))
               cb(null, require('./routes/homePage/topicDetail/'))
             }, 'topic-detail')
+          },
+        },
+        {
+          path: 'collections',
+          getComponent (nextState, cb) {
+            require.ensure([], (require) => {
+              registerModel(app, require('./models/collections'))
+              cb(null, require('./routes/collections/'))
+            }, 'collections')
           },
         },
         {

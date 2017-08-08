@@ -12,17 +12,17 @@ export default class RichText extends React.Component {
     this.state = {
       editorContent: null,
     }
+    this.handleReply = this.handleReply.bind(this)
   }
   onEditorStateChange = (editorContent) => {
     this.setState({
       editorContent,
     })
-    this.handleReply = this.handleReply.bind(this)
   }
   handleReply () {
-    const { dispatch } = this.props
+    const { dispatch, reply_id = null } = this.props
     const { editorContent } = this.state
-    dispatch({ type: 'topicDetail/replies', payload: { content: draftToMarkdown(convertToRaw(editorContent.getCurrentContent())) } })
+    dispatch({ type: 'topicDetail/replies', payload: { reply_id, content: draftToMarkdown(convertToRaw(editorContent.getCurrentContent())) } })
   }
   render () {
     const { editorContent } = this.state
