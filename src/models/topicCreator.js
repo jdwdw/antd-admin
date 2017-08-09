@@ -13,16 +13,17 @@ export default {
   subscriptions: {
 
     setup ({ dispatch, history }) {
-      console.log('topicCreator')
-      console.log(history)
       history.listen((location) => {
-        console.log(location.pathname)
         const match = pathToRegexp('/topic/:id/edit').exec(location.pathname)
-        console.log(match)
         if (match) {
           dispatch({
             type: 'getTopic',
             payload: { id: match[1] },
+          })
+        } else {
+          dispatch({
+            type: 'updateState',
+            payload: { topicData: {}, topicId: '' },
           })
         }
       })

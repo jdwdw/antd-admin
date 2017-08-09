@@ -13,8 +13,6 @@ class Collections extends Component {
 
   render () {
     const { dispatch } = this.props
-    console.log(this.props.collections)
-    console.log(this.props.collections.collectionsData.length)
     if (this.props.collections.collectionsData.length <= 0) {
       return (
         <div>
@@ -23,9 +21,7 @@ class Collections extends Component {
 
       )
     }
-    console.log(this.props.collections)
     const { collectionsData } = this.props.collections
-    console.log(collectionsData)
     const dataSource = collectionsData.map((value) => {
       return (
         {

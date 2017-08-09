@@ -23,7 +23,6 @@ class MyPage extends Component {
   render () {
     const { myPage, dispatch } = this.props
     let accesstokenValue = this.state.accesstokenValue
-    console.log(localStorage.getItem('accesstoken'))
     if (localStorage.getItem('accesstoken')) {
       return (
         <div>

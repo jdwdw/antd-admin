@@ -98,7 +98,7 @@ class TabBarComponent extends Component {
               this.setState({
                 selectedTab: 'message',
               })
-              this.props.onChangeRoute('/UIElement/dropOption')
+              this.props.onChangeRoute('/messages')
             }}
           >
             {children}

@@ -13,13 +13,14 @@ export default {
 
     setup ({ dispatch, history }) {
       history.listen((location) => {
-        console.log(location.pathname)
-        console.log(pathToRegexp('/tac/:id/topic').exec('/tac/333232/topic'))
         const match = pathToRegexp('/topic/:id').exec(location.pathname)
         if (match) {
           dispatch({
             type: 'getTopic',
             payload: { id: match[1] },
+          })
+          dispatch({
+            type: 'messages/markAllMessage',
           })
         }
       })

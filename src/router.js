@@ -75,6 +75,15 @@ const Routers = function ({ history, app }) {
           },
         },
         {
+          path: 'messages',
+          getComponent (nextState, cb) {
+            require.ensure([], (require) => {
+              registerModel(app, require('./models/messages'))
+              cb(null, require('./routes/messages/'))
+            }, 'messages')
+          },
+        },
+        {
           path: 'dashboard',
           getComponent (nextState, cb) {
             require.ensure([], (require) => {

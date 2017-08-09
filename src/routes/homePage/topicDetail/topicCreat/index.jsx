@@ -15,10 +15,11 @@ class TopicCreate extends Component {
   render () {
     const props = this.props
 
+    const TopicCreatorContainer = connect(({ topicCreator }) => ({ topicCreator }))(TopicCreator)
     return (
       <div>
         <Button onClick={function () { props.history.goBack() }}> goBack</Button>
-        <TopicCreator {...props} />
+        <TopicCreatorContainer {...props} />
       </div>
 
     )

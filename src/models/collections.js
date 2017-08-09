@@ -26,7 +26,6 @@ export default {
     * getCollections ({ payload }, { call, put }) {
       const params = { loginname: localStorage.getItem('loginname') }
       let data = yield call(getCollections, params)
-      console.log(data)
       if (data.success) {
         data = { collectionsData: data.data }
         yield put({ type: 'updateState',

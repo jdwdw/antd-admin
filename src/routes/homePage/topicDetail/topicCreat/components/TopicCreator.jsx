@@ -16,6 +16,21 @@ export default class RichText extends React.Component {
     }
     this.handleTopicCreate = this.handleTopicCreate.bind(this)
   }
+
+  componentWillMount () {
+    if (this.props.topicCreator.topicData.content) {
+      console.log('33333')
+      const blocksFromHTML = convertFromHTML(this.props.topicCreator.topicData.content)
+      const contentState = ContentState.createFromBlockArray(blocksFromHTML)
+      const editorState = EditorState.createWithContent(contentState)
+      this.setState({
+        editorContent: editorState,
+        title: this.props.topicCreator.topicData.title,
+        tab: this.props.topicCreator.topicData.tab,
+      })
+    }
+  }
+
   onEditorStateChange = (editorContent) => {
     this.setState({
       editorContent,
@@ -36,19 +51,10 @@ export default class RichText extends React.Component {
   handleTopicCreate () {
     const { dispatch, reply_id = null } = this.props
     const { editorContent, title, tab } = this.state
-    console.log('handleReply')
-    console.log(editorContent.getCurrentContent())
     dispatch({ type: 'topicCreator/creatTopic', payload: { title, tab, content: draftToMarkdown(convertToRaw(editorContent.getCurrentContent())) } })
   }
   render () {
     const { editorContent } = this.state
-    if (this.props.topicCreator.topicData.content) {
-      console.log(this.props.topicCreator.topicData.content)
-      const blocksFromHTML = convertFromHTML(this.props.topicCreator.topicData.content)
-      const contentState = ContentState.createFromBlockArray(blocksFromHTML)
-      const editorState = EditorState.createWithContent(contentState)
-      console.log(editorState)
-    }
 
     return (<div className="content-inner">
       <select onChange={this.onTabStateChange}>
@@ -62,7 +68,7 @@ export default class RichText extends React.Component {
         placeholder=" 标题不少于十个字 "
         autoFocus
         onChange={value => this.onInputValueChange(value)}
-        // defaultValue={this.props.topicCreator.topicData.title ? this.props.topicCreator.topicData.title : ''}
+        defaultValue={this.state.title}
       >
       标题
       </InputItem>
