@@ -9,7 +9,7 @@ module.exports = (webpackConfig) => {
     localIdentName: '[hash:base64:5]',
   }
   const cssLoaders = webpackConfig.module.loaders[3].loader.split('!')
-  webpackConfig.module.loaders[3].loader = cssLoaders.map(item => {
+  webpackConfig.module.loaders[3].loader = cssLoaders.map((item) => {
     if (item.startsWith('css')) {
       return `css?${JSON.stringify(cssLoaderOption)}`
     }

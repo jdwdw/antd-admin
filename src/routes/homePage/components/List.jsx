@@ -51,6 +51,7 @@ class List extends Component {
       />
     )
     const row = (rowData) => {
+      console.log(rowData)
       return (
         <div>
           <img src={rowData.author.avatar_url} style={{ height: '1rem', width: '1rem' }} />
@@ -65,7 +66,12 @@ class List extends Component {
       rowHasChanged: (row1, row2) => row1 !== row2,
     })
 
+    console.log(this.props[key].dataSource.length)
+    if (!this.props[key].dataSource[0]) {
+      return (<div> is loading</div>)
+    }
     const dataSource = ds.cloneWithRows(this.props[key].dataSource)
+    console.log(this.props[key].dataSource)
     return (
       <div style={{ margin: '0 auto', width: '96%' }}>
         <ListView

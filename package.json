@@ -8,9 +8,11 @@
     "draftjs-to-markdown": "^0.4.0",
     "dva": "^1.2.0",
     "dva-loading": "^0.2.0",
+    "express": "^4.15.4",
     "lodash": "^4.17.4",
     "nprogress": "^0.2.0",
     "qs": "^6.5.0",
+    "rc-upload": "^2.4.0",
     "react": "^15.6.1",
     "react-countup": "^2.1.1",
     "react-dom": "^15.6.1",
@@ -55,6 +57,7 @@
   "scripts": {
     "dev": "set BROWSER=none&&set HOST=0.0.0.0&&roadhog server",
     "lint": "eslint --fix --ext .js src",
-    "build": "roadhog build"
+    "build": "roadhog build",
+    "server": "node server.js"
   }
 }
