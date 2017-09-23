@@ -1,11 +1,14 @@
 .AvatarPicker{
   width: 120px;
-  display:inline;
+  // height: 120px;
+  display:inline-block;
   :global .rc-upload{
+    height:0px;
+    width: 0px;
     .imgChosen{
-      width: 120px;
-      height: 120px;
+      width: 100%;
+      height: auto;
+      max-height: 120px;
     }
   }
-
 }

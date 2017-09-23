@@ -20,6 +20,8 @@ export default {
     concatTopics: [
       function* ({ payload }, { call, put, select }) {
         const list = yield select(state => state[payload])
+        console.log(list.tab)
+        console.log('dddddd')
         const params = { tab: list.tab, page: list.currentPage }
         let data = yield call(getTopics, params)
         if (data.success) {
@@ -44,6 +46,7 @@ export default {
           payload: { refreshing },
         })
         const params = { tab: list.tab, page: 1 }
+        console.log(list.tab)
         let data = yield call(getTopics, params)
         if (data.success) {
           data = { dataSource: data.data, currentPage: 1 }

@@ -4,6 +4,9 @@ import list from './list'
 export default modelExtend(list, {
 
   namespace: 'listJob',
+  state: {
+    tab: 'job',
+  },
 
   subscriptions: {
 
